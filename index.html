@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chartreuse Views</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Figtree:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cv: #c8e63a;
+      --cv-dim: #a0b82e;
+      --cv-pale: rgba(200,230,58,0.08);
+      --cv-glow: rgba(200,230,58,0.25);
+      --ink: #0d0d08;
+      --ink-mid: #1a1a10;
+      --ink-soft: #2a2a18;
+      --cream: #f5f2e8;
+      --cream-dim: rgba(245,242,232,0.7);
+      --cream-soft: rgba(245,242,232,0.4);
+      --cream-ghost: rgba(245,242,232,0.12);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Figtree', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── GRAIN ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: normal;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cv);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--cv); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 2rem 6rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 30%, rgba(200,230,58,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 15% 60%, rgba(200,230,58,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 85% 70%, rgba(200,230,58,0.03) 0%, transparent 60%);
+    }
+
+    /* Animated rings */
+    .rings {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(200,230,58,0.06);
+      animation: ringExpand 8s ease-out infinite;
+    }
+    .ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+    .ring:nth-child(2) { width: 500px; height: 500px; animation-delay: 1.5s; }
+    .ring:nth-child(3) { width: 700px; height: 700px; animation-delay: 3s; }
+    .ring:nth-child(4) { width: 900px; height: 900px; animation-delay: 4.5s; }
+
+    @keyframes ringExpand {
+      0% { opacity: 0; transform: scale(0.8); }
+      30% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.1); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--cv);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 1s ease both;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 14vw, 11rem);
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      animation: fadeUp 1s 0.1s ease both;
+    }
+
+    .hero-title .cv-word {
+      color: var(--cv);
+      font-style: italic;
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+      margin-top: 2rem;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      margin-top: 1rem;
+      animation: fadeUp 1s 0.3s ease both;
+      font-style: italic;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      animation: fadeUp 1s 0.8s ease both;
+    }
+
+    .scroll-text {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-ghost);
+    }
+
+    .scroll-bar {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--cv), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDrop {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.4; }
+    }
+
+    /* ── MUSIC PLAYER ── */
+    .player-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(13,13,8,0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(200,230,58,0.15);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .player-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cv);
+      animation: playerPulse 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes playerPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .player-info {
+      flex: 1;
+    }
+
+    .player-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+    }
+
+    .player-song {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-top: 0.1rem;
+    }
+
+    .player-btn {
+      background: none;
+      border: 1px solid rgba(200,230,58,0.3);
+      color: var(--cv);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Figtree', sans-serif;
+    }
+
+    .player-btn:hover {
+      background: var(--cv-pale);
+      border-color: var(--cv);
+    }
+
+    /* ── VOLUMES SECTION ── */
+    .volumes {
+      padding: 8rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cv);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 4rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--cv);
+    }
+
+    .volumes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .volume-card {
+      position: relative;
+      border: 1px solid rgba(245,242,232,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .volume-card.active {
+      border-color: rgba(200,230,58,0.3);
+    }
+
+    .volume-card.active:hover {
+      border-color: var(--cv);
+      transform: translateY(-4px);
+    }
+
+    .volume-card.future {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .volume-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.7) brightness(0.6);
+      transition: filter 0.4s;
+    }
+
+    .volume-card.active:hover .volume-img {
+      filter: saturate(0.9) brightness(0.75);
+    }
+
+    .volume-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .volume-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,13,8,0.95) 0%, rgba(13,13,8,0.3) 60%, transparent 100%);
+    }
+
+    .volume-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+    }
+
+    .volume-number {
+      font-family: 'Caveat', cursive;
+      font-size: 0.9rem;
+      color: var(--cv);
+      margin-bottom: 0.3rem;
+    }
+
+    .volume-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .volume-dates {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--cream-soft);
+      text-transform: uppercase;
+    }
+
+    .volume-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cv);
+      font-weight: 500;
+    }
+
+    .volume-cta::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .volume-card:hover .volume-cta::after {
+      transform: translateX(4px);
+    }
+
+    .volume-future-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--cream-soft);
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about {
+      padding: 8rem 3rem;
+      border-top: 1px solid rgba(245,242,232,0.06);
+    }
+
+    .about-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .about-quote span { color: var(--cv); }
+
+    .about-text {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--cream-soft);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      padding: 6rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2px;
+      border: 1px solid rgba(245,242,232,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 2.5rem 2rem;
+      background: var(--ink-mid);
+      text-align: center;
+      border-right: 1px solid rgba(245,242,232,0.06);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--cv);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+      font-weight: 400;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(200,230,58,0.2);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cv);
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: var(--cream-ghost);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .volumes { padding: 5rem 1.5rem; }
+      .about { padding: 5rem 1.5rem; }
+      .stats { padding: 4rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Chartreuse Views</div>
+    <div class="nav-right">
+      <a href="year-one.html" class="nav-link">Year One</a>
+      <a href="#volumes" class="nav-link">All Volumes</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+
+    <p class="hero-eyebrow">Mitch & Becka · Est. March 29, 2025</p>
+    <h1 class="hero-title">
+      Chartreuse
+      <span class="cv-word">Views</span>
+    </h1>
+    <p class="hero-sub">An annual record of a life built together</p>
+    <p class="hero-names">One volume per year. Forever.</p>
+
+    <div class="hero-scroll">
+      <div class="scroll-bar"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Year Together</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">16</div>
+        <div class="stat-label">Adventures</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Cities</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Countries</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">More to Come</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLUMES -->
+  <section class="volumes" id="volumes">
+    <p class="section-eyebrow reveal">The Collection</p>
+    <h2 class="section-title reveal">Every year, <em>a new volume.</em></h2>
+
+    <div class="volumes-grid">
+
+      <!-- Year One — ACTIVE -->
+      <a href="year-one.html" class="volume-card active reveal">
+        <!-- Replace src with your Cloudflare R2 hero image URL -->
+        <img class="volume-img" src="https://placehold.co/800x450/0d0d08/c8e63a?text=Year+One" alt="Year One" />
+        <div class="volume-overlay"></div>
+        <div class="volume-content">
+          <div class="volume-number">Volume I</div>
+          <div class="volume-year">Year One</div>
+          <div class="volume-dates">Mar 29, 2025 — Mar 29, 2026</div>
+          <div class="volume-cta">Open this chapter</div>
+        </div>
+      </a>
+
+      <!-- Year Two — Future -->
+      <div class="volume-card future reveal">
+        <div class="volume-img-placeholder"></div>
+        <div class="volume-overlay"></div>
+        <div class="volume-content">
+          <div class="volume-number">Volume II</div>
+          <div class="volume-year">Year Two</div>
+          <div class="volume-dates">Mar 29, 2026 — Mar 29, 2027</div>
+          <div class="volume-future-label">Coming next year</div>
+        </div>
+      </div>
+
+      <!-- Year Three — Future -->
+      <div class="volume-card future reveal">
+        <div class="volume-img-placeholder"></div>
+        <div class="volume-overlay"></div>
+        <div class="volume-content">
+          <div class="volume-number">Volume III</div>
+          <div class="volume-year">Year Three</div>
+          <div class="volume-dates">Mar 29, 2027 — Mar 29, 2028</div>
+          <div class="volume-future-label">Coming soon</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="about-inner">
+      <p class="about-quote reveal">
+        "A collection of <span>views</span> — the places we've seen, the way we see each other, and how the world looks different when you're next to the right person."
+      </p>
+      <p class="about-text reveal">
+        Chartreuse Views is an annual archive. Every March 29th, a new volume is added — a hardcover book and a digital chapter. Photographs, memories, a love letter, and a song for the year. Built to last.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Chartreuse Views</div>
+    <div class="footer-copy">Mitch & Becka · chartreuseviews.com</div>
+  </footer>
+
+  <!-- MUSIC PLAYER -->
+  <div class="player-bar">
+    <div class="player-dot"></div>
+    <div class="player-info">
+      <div class="player-label">Year One Soundtrack</div>
+      <div class="player-song">Add your song here — chartreuseviews.com</div>
+    </div>
+    <button class="player-btn" onclick="this.textContent = this.textContent === '♪ Play' ? '❚❚ Pause' : '♪ Play'">♪ Play</button>
+  </div>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+
+</body>
+</html>
