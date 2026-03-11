@@ -33,7 +33,6 @@
       cursor: default;
     }
 
-    /* ── GRAIN ── */
     body::after {
       content: '';
       position: fixed;
@@ -54,7 +53,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      mix-blend-mode: normal;
     }
 
     .nav-logo {
@@ -64,24 +62,86 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--cv);
+      text-decoration: none;
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
+    .nav-dropdown { position: relative; }
 
-    .nav-link {
+    .nav-dropdown-btn {
+      background: none;
+      border: none;
+      font-family: 'Figtree', sans-serif;
       font-size: 0.72rem;
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--cream-soft);
-      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
       transition: color 0.2s;
+      padding: 0;
     }
-    .nav-link:hover { color: var(--cv); }
+
+    .nav-dropdown-btn:hover { color: var(--cv); }
+
+    .nav-dropdown-btn::after {
+      content: '▾';
+      font-size: 0.65rem;
+      transition: transform 0.2s;
+    }
+
+    .nav-dropdown:hover .nav-dropdown-btn::after { transform: rotate(180deg); }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 1rem);
+      right: 0;
+      background: rgba(26,26,16,0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(200,230,58,0.15);
+      border-radius: 4px;
+      min-width: 200px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.2s, transform 0.2s;
+      overflow: hidden;
+    }
+
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .nav-dropdown-item {
+      display: block;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      border-bottom: 1px solid rgba(245,242,232,0.05);
+    }
+
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover { background: var(--cv-pale); color: var(--cv); }
+    .nav-dropdown-item.active { color: var(--cv); }
+
+    .item-sub {
+      display: block;
+      font-size: 0.6rem;
+      opacity: 0.5;
+      margin-top: 0.2rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      font-weight: 300;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -105,7 +165,6 @@
         radial-gradient(ellipse 30% 40% at 85% 70%, rgba(200,230,58,0.03) 0%, transparent 60%);
     }
 
-    /* Animated rings */
     .rings {
       position: absolute;
       inset: 0;
@@ -132,15 +191,6 @@
       100% { opacity: 0; transform: scale(1.1); }
     }
 
-    .hero-eyebrow {
-      font-family: 'Caveat', cursive;
-      font-size: 1.2rem;
-      color: var(--cv);
-      margin-bottom: 1.5rem;
-      animation: fadeUp 1s ease both;
-      letter-spacing: 0.05em;
-    }
-
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(4.5rem, 14vw, 11rem);
@@ -158,23 +208,13 @@
     }
 
     .hero-sub {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 400;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--cream-soft);
       margin-top: 2rem;
       animation: fadeUp 1s 0.2s ease both;
-    }
-
-    .hero-names {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: var(--cream-dim);
-      margin-top: 1rem;
-      animation: fadeUp 1s 0.3s ease both;
-      font-style: italic;
     }
 
     .hero-scroll {
@@ -211,9 +251,7 @@
     /* ── MUSIC PLAYER ── */
     .player-bar {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       z-index: 200;
       background: rgba(13,13,8,0.95);
       backdrop-filter: blur(20px);
@@ -225,8 +263,7 @@
     }
 
     .player-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--cv);
       animation: playerPulse 1.5s ease-in-out infinite;
@@ -238,9 +275,7 @@
       50% { opacity: 0.4; transform: scale(0.8); }
     }
 
-    .player-info {
-      flex: 1;
-    }
+    .player-info { flex: 1; }
 
     .player-label {
       font-size: 0.65rem;
@@ -272,12 +307,51 @@
       font-family: 'Figtree', sans-serif;
     }
 
-    .player-btn:hover {
-      background: var(--cv-pale);
-      border-color: var(--cv);
+    .player-btn:hover { background: var(--cv-pale); border-color: var(--cv); }
+
+    /* ── STATS ── */
+    .stats {
+      padding: 6rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* ── VOLUMES SECTION ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      border: 1px solid rgba(245,242,232,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 2.5rem 2rem;
+      background: var(--ink-mid);
+      text-align: center;
+      border-right: 1px solid rgba(245,242,232,0.06);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Figtree', sans-serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--cv);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+      font-weight: 400;
+    }
+
+    /* ── VOLUMES ── */
     .volumes {
       padding: 8rem 3rem;
       max-width: 1200px;
@@ -285,56 +359,33 @@
     }
 
     .section-eyebrow {
-      font-size: 0.7rem;
+      font-size: 1rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--cv);
-      margin-bottom: 1rem;
+      margin-bottom: 3rem;
       font-weight: 500;
     }
 
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1.05;
-      margin-bottom: 4rem;
-    }
-
-    .section-title em {
-      font-style: italic;
-      color: var(--cv);
-    }
-
     .volumes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
+      display: flex;
+      justify-content: center;
     }
 
     .volume-card {
       position: relative;
-      border: 1px solid rgba(245,242,232,0.08);
+      border: 1px solid rgba(200,230,58,0.3);
       border-radius: 4px;
       overflow: hidden;
       transition: border-color 0.3s, transform 0.3s;
       text-decoration: none;
       display: block;
+      width: 420px;
     }
 
-    .volume-card.active {
-      border-color: rgba(200,230,58,0.3);
-    }
-
-    .volume-card.active:hover {
+    .volume-card:hover {
       border-color: var(--cv);
       transform: translateY(-4px);
-    }
-
-    .volume-card.future {
-      opacity: 0.4;
-      pointer-events: none;
     }
 
     .volume-img {
@@ -346,17 +397,8 @@
       transition: filter 0.4s;
     }
 
-    .volume-card.active:hover .volume-img {
+    .volume-card:hover .volume-img {
       filter: saturate(0.9) brightness(0.75);
-    }
-
-    .volume-img-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: var(--ink-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .volume-overlay {
@@ -367,9 +409,7 @@
 
     .volume-content {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       padding: 2rem;
     }
 
@@ -408,25 +448,12 @@
       font-weight: 500;
     }
 
-    .volume-cta::after {
-      content: '→';
-      transition: transform 0.2s;
-    }
+    .volume-cta::after { content: '→'; transition: transform 0.2s; }
+    .volume-card:hover .volume-cta::after { transform: translateX(4px); }
 
-    .volume-card:hover .volume-cta::after {
-      transform: translateX(4px);
-    }
-
-    .volume-future-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-style: italic;
-      color: var(--cream-soft);
-    }
-
-    /* ── ABOUT SECTION ── */
+    /* ── ABOUT ── */
     .about {
-      padding: 8rem 3rem;
+      padding: 6rem 3rem;
       border-top: 1px solid rgba(245,242,232,0.06);
     }
 
@@ -443,61 +470,9 @@
       font-style: italic;
       line-height: 1.4;
       color: var(--cream);
-      margin-bottom: 2rem;
     }
 
     .about-quote span { color: var(--cv); }
-
-    .about-text {
-      font-size: 0.9rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--cream-soft);
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    /* ── STATS ── */
-    .stats {
-      padding: 6rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 2px;
-      border: 1px solid rgba(245,242,232,0.06);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .stat {
-      padding: 2.5rem 2rem;
-      background: var(--ink-mid);
-      text-align: center;
-      border-right: 1px solid rgba(245,242,232,0.06);
-    }
-
-    .stat:last-child { border-right: none; }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--cv);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--cream-soft);
-      font-weight: 400;
-    }
 
     /* ── FOOTER ── */
     footer {
@@ -525,7 +500,6 @@
       letter-spacing: 0.08em;
     }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
@@ -537,19 +511,16 @@
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1.2rem 1.5rem; }
       .volumes { padding: 5rem 1.5rem; }
-      .about { padding: 5rem 1.5rem; }
+      .about { padding: 4rem 1.5rem; }
       .stats { padding: 4rem 1.5rem; }
       footer { padding: 2rem 1.5rem; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .volume-card { width: 100%; }
     }
   </style>
 </head>
@@ -557,10 +528,16 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Chartreuse Views</div>
-    <div class="nav-right">
-      <a href="year-one.html" class="nav-link">Year One</a>
-      <a href="#volumes" class="nav-link">All Volumes</a>
+    <a href="index.html" class="nav-logo">Chartreuse Views</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">This Year</button>
+      <div class="nav-dropdown-menu">
+        <a href="year-one.html" class="nav-dropdown-item active">
+          Year One
+          <span class="item-sub">Mar 29, 2025 — Mar 29, 2026</span>
+        </a>
+        <!-- Add new years here each March 29th -->
+      </div>
     </div>
   </nav>
 
@@ -573,15 +550,11 @@
       <div class="ring"></div>
       <div class="ring"></div>
     </div>
-
-    <p class="hero-eyebrow">Mitch & Becka · Est. March 29, 2025</p>
     <h1 class="hero-title">
       Chartreuse
       <span class="cv-word">Views</span>
     </h1>
-    <p class="hero-sub">An annual record of a life built together</p>
-    <p class="hero-names">One volume per year. Forever.</p>
-
+    <p class="hero-sub">An interactive record of our lives together · Est. 2025</p>
     <div class="hero-scroll">
       <div class="scroll-bar"></div>
       <span class="scroll-text">Scroll</span>
@@ -594,10 +567,6 @@
       <div class="stat">
         <div class="stat-num">1</div>
         <div class="stat-label">Year Together</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">16</div>
-        <div class="stat-label">Adventures</div>
       </div>
       <div class="stat">
         <div class="stat-num">8</div>
@@ -617,13 +586,9 @@
   <!-- VOLUMES -->
   <section class="volumes" id="volumes">
     <p class="section-eyebrow reveal">The Collection</p>
-    <h2 class="section-title reveal">Every year, <em>a new volume.</em></h2>
-
     <div class="volumes-grid">
-
-      <!-- Year One — ACTIVE -->
-      <a href="year-one.html" class="volume-card active reveal">
-          <img class="volume-img" src="https://pub-8880c245e94e43a9a8203f5fd57e8ece.r2.dev/IMG_7589.JPG" alt="Year One" />
+      <a href="year-one.html" class="volume-card reveal">
+        <img class="volume-img" src="https://pub-8880c245e94e43a9a8203f5fd57e8ece.r2.dev/IMG_7589.JPG" alt="Year One" />
         <div class="volume-overlay"></div>
         <div class="volume-content">
           <div class="volume-number">Volume I</div>
@@ -632,31 +597,6 @@
           <div class="volume-cta">Open this chapter</div>
         </div>
       </a>
-
-      <!-- Year Two — Future -->
-      <div class="volume-card future reveal">
-        <div class="volume-img-placeholder"></div>
-        <div class="volume-overlay"></div>
-        <div class="volume-content">
-          <div class="volume-number">Volume II</div>
-          <div class="volume-year">Year Two</div>
-          <div class="volume-dates">Mar 29, 2026 — Mar 29, 2027</div>
-          <div class="volume-future-label">Coming next year</div>
-        </div>
-      </div>
-
-      <!-- Year Three — Future -->
-      <div class="volume-card future reveal">
-        <div class="volume-img-placeholder"></div>
-        <div class="volume-overlay"></div>
-        <div class="volume-content">
-          <div class="volume-number">Volume III</div>
-          <div class="volume-year">Year Three</div>
-          <div class="volume-dates">Mar 29, 2027 — Mar 29, 2028</div>
-          <div class="volume-future-label">Coming soon</div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -664,10 +604,7 @@
   <section class="about">
     <div class="about-inner">
       <p class="about-quote reveal">
-        "A collection of <span>views</span> — the places we've seen, the way we see each other, and how the world looks different when you're next to the right person."
-      </p>
-      <p class="about-text reveal">
-        Chartreuse Views is an annual archive. Every March 29th, a new volume is added — a hardcover book and a digital chapter. Photographs, memories, a love letter, and a song for the year. Built to last.
+        A compendium of our <span>views</span> together throughout each year.
       </p>
     </div>
   </section>
@@ -683,13 +620,12 @@
     <div class="player-dot"></div>
     <div class="player-info">
       <div class="player-label">Year One Soundtrack</div>
-      <div class="player-song">Add your song here — chartreuseviews.com</div>
+      <div class="player-song">Add your song here</div>
     </div>
     <button class="player-btn" onclick="this.textContent = this.textContent === '♪ Play' ? '❚❚ Pause' : '♪ Play'">♪ Play</button>
   </div>
 
   <script>
-    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
