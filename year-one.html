@@ -519,6 +519,62 @@
       50% { opacity: 0.3; }
     }
 
+    /* ── PLAYER BAR ── */
+    .player-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      background: rgba(13,13,8,0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(200,230,58,0.15);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .player-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--cv);
+      animation: playerPulse 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .player-info { flex: 1; }
+
+    .player-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+    }
+
+    .player-song {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-top: 0.1rem;
+    }
+
+    .player-btn {
+      background: none;
+      border: 1px solid rgba(200,230,58,0.3);
+      color: var(--cv);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Figtree', sans-serif;
+    }
+
+    .player-btn:hover { background: var(--cv-pale); border-color: var(--cv); }
+
     /* ── CLOSING ── */
     .closing {
       padding: 8rem 4rem;
@@ -704,7 +760,7 @@
         <div class="tl-dot"></div>
         <div class="tl-date">June 2025 · Chicago & Madison, WI</div>
         <div class="tl-event">Chi to WI</div>
-        <div class="tl-caption">The Bean and Madison! May I say that this was where we began perfecting this pose? Still need to get you into the Lounge Life...this smugness could be yours too!</div>
+        <div class="tl-caption">The Bean and Madison! May I say that this was where we began perfecting this pose? Still need to get you into the Lounge Life...that smugness could be yours too!</div>
         <div class="tl-photo">
           <img src="https://pub-8880c245e94e43a9a8203f5fd57e8ece.r2.dev/IMG_0880.jpg" alt="Chicago1" />
         </div>
@@ -1003,6 +1059,18 @@
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 
+  <!-- MUSIC PLAYER -->
+  <audio id="cv-audio" src="https://pub-8880c245e94e43a9a8203f5fd57e8ece.r2.dev/ashes.mp3" loop preload="auto"></audio>
+  <div class="player-bar">
+    <div class="player-dot" id="player-dot"></div>
+    <div class="player-info">
+      <div class="player-label">Year One Soundtrack</div>
+      <div class="player-song">Ashes · Diplo & Bailey Zimmerman</div>
+    </div>
+    <button class="player-btn" id="player-btn">♪ Play</button>
+    <button class="player-btn" id="mute-btn">♪ Mute</button>
+  </div>
+
   <script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal, .tl-item');
@@ -1032,6 +1100,46 @@
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Audio — autoplay on first interaction
+    const audio = document.getElementById('cv-audio');
+    const btn = document.getElementById('player-btn');
+    const muteBtn = document.getElementById('mute-btn');
+    let started = false;
+
+    audio.volume = 0.6;
+
+    function startAudio() {
+      if (started) return;
+      started = true;
+      audio.play().catch(() => {});
+      btn.textContent = '❚❚ Pause';
+      document.removeEventListener('click', startAudio);
+      document.removeEventListener('scroll', startAudio);
+      document.removeEventListener('touchstart', startAudio);
+    }
+
+    document.addEventListener('click', startAudio);
+    document.addEventListener('scroll', startAudio);
+    document.addEventListener('touchstart', startAudio);
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '❚❚ Pause';
+        started = true;
+      } else {
+        audio.pause();
+        btn.textContent = '♪ Play';
+      }
+    });
+
+    muteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? '♪ Unmute' : '♪ Mute';
     });
   </script>
 
