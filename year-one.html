@@ -10,24 +10,24 @@
   <style>
     :root {
       --cv: #c8e63a;
-      --cv-dim: #a0b82e;
-      --cv-pale: rgba(200,230,58,0.08);
-      --cv-glow: rgba(200,230,58,0.22);
-      --ink: #0d0d08;
-      --ink-mid: #1a1a10;
-      --ink-soft: #242418;
-      --cream: #f5f2e8;
-      --cream-dim: rgba(245,242,232,0.75);
-      --cream-soft: rgba(245,242,232,0.45);
-      --cream-ghost: rgba(245,242,232,0.12);
+      --cv-dark: #6b8500;
+      --cv-pale: rgba(107,133,0,0.08);
+      --cv-glow: rgba(200,230,58,0.3);
+      --bg: #f2ede0;
+      --bg-mid: #e8e2d0;
+      --bg-soft: #ddd8c4;
+      --ink: #1a1a0c;
+      --ink-mid: #3a3a28;
+      --ink-soft: #6a6a50;
+      --ink-ghost: #a0a080;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--ink);
-      color: var(--cream);
+      background: var(--bg);
+      color: var(--ink);
       font-family: 'Figtree', sans-serif;
       overflow-x: hidden;
     }
@@ -49,13 +49,13 @@
       top: 0;
       width: 100%;
       z-index: 100;
-      padding: 1.5rem 3rem;
+      padding: 1.2rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(13,13,8,0.85);
+      background: rgba(242,237,224,0.92);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(200,230,58,0.08);
+      border-bottom: 1px solid rgba(26,26,12,0.1);
     }
 
     .nav-left { display: flex; align-items: center; gap: 1.5rem; }
@@ -64,14 +64,14 @@
       font-size: 0.7rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--cream-soft);
+      color: var(--ink-soft);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.4rem;
       transition: color 0.2s;
     }
-    .nav-back:hover { color: var(--cv); }
+    .nav-back:hover { color: var(--cv-dark); }
     .nav-back::before { content: '←'; }
 
     .nav-logo {
@@ -80,18 +80,18 @@
       font-weight: 300;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--cv);
+      color: var(--cv-dark);
       text-decoration: none;
     }
 
     .nav-volume {
       font-size: 0.7rem;
       letter-spacing: 0.12em;
-      color: var(--cream-ghost);
+      color: var(--ink-soft);
       font-weight: 400;
     }
 
-    /* ── CHAPTER HERO ── */
+    /* ── CHAPTER HERO ── keeps dark — it's a full-bleed photo ── */
     .chapter-hero {
       min-height: 100vh;
       position: relative;
@@ -105,18 +105,17 @@
     .chapter-hero-bg {
       position: absolute;
       inset: 0;
-      background: var(--ink);
+      background: #1a1a0c;
     }
 
-    /* Hero photo — replace with real Museum Center image */
     .chapter-hero-img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.35;
-      filter: saturate(0.6);
+      opacity: 0.45;
+      filter: saturate(0.7);
     }
 
     .chapter-hero-overlay {
@@ -124,9 +123,9 @@
       inset: 0;
       background: linear-gradient(
         to top,
-        rgba(13,13,8,1) 0%,
-        rgba(13,13,8,0.7) 40%,
-        rgba(13,13,8,0.2) 100%
+        rgba(10,10,6,1) 0%,
+        rgba(10,10,6,0.6) 40%,
+        rgba(10,10,6,0.1) 100%
       );
     }
 
@@ -150,7 +149,7 @@
       font-weight: 300;
       line-height: 0.9;
       letter-spacing: -0.02em;
-      color: var(--cream);
+      color: #f5f2e8;
       animation: fadeUp 0.8s 0.1s ease both;
     }
 
@@ -163,7 +162,7 @@
       font-size: 1.1rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--cream-soft);
+      color: rgba(245,242,232,0.6);
       margin-top: 0.8rem;
       animation: fadeUp 0.8s 0.2s ease both;
     }
@@ -173,7 +172,7 @@
       font-size: 1.4rem;
       font-style: italic;
       font-weight: 300;
-      color: var(--cream-dim);
+      color: rgba(245,242,232,0.75);
       margin-top: 1rem;
       max-width: 500px;
       line-height: 1.5;
@@ -191,7 +190,7 @@
       font-size: 0.68rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--cv);
+      color: var(--cv-dark);
       margin-bottom: 0.8rem;
       font-weight: 500;
     }
@@ -200,12 +199,12 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.2rem, 5vw, 4rem);
       font-weight: 300;
-      color: var(--cream);
+      color: var(--ink);
       line-height: 1.05;
       margin-bottom: 3rem;
     }
 
-    .section-heading em { font-style: italic; color: var(--cv); }
+    .section-heading em { font-style: italic; color: var(--cv-dark); }
 
     .divider {
       border: none;
@@ -216,9 +215,9 @@
     /* ── LOVE LETTER ── */
     .letter-section {
       padding: 7rem 4rem;
-      background: var(--ink-mid);
-      border-top: 1px solid rgba(200,230,58,0.12);
-      border-bottom: 1px solid rgba(200,230,58,0.12);
+      background: var(--bg-mid);
+      border-top: 1px solid var(--bg-soft);
+      border-bottom: 1px solid var(--bg-soft);
     }
 
     .letter-inner {
@@ -232,7 +231,7 @@
       font-style: italic;
       font-weight: 300;
       line-height: 1.85;
-      color: var(--cream-dim);
+      color: var(--ink-mid);
     }
 
     .letter-text p + p { margin-top: 1.5em; }
@@ -241,7 +240,7 @@
       margin-top: 2.5rem;
       font-family: 'Caveat', cursive;
       font-size: 1.6rem;
-      color: var(--cv);
+      color: var(--cv-dark);
     }
 
     /* ── TIMELINE ── */
@@ -257,7 +256,7 @@
       top: 0;
       bottom: 0;
       width: 1px;
-      background: linear-gradient(to bottom, var(--cv), transparent);
+      background: linear-gradient(to bottom, var(--cv-dark), transparent);
     }
 
     .tl-item {
@@ -280,15 +279,15 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: var(--cv);
-      box-shadow: 0 0 12px var(--cv-glow);
+      background: var(--cv-dark);
+      box-shadow: 0 0 12px rgba(107,133,0,0.3);
     }
 
     .tl-date {
       font-size: 0.68rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--cv);
+      color: var(--cv-dark);
       margin-bottom: 0.4rem;
       font-weight: 500;
     }
@@ -297,7 +296,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
       font-weight: 300;
-      color: var(--cream);
+      color: var(--ink);
       margin-bottom: 0.5rem;
       line-height: 1.1;
     }
@@ -305,7 +304,7 @@
     .tl-caption {
       font-size: 0.88rem;
       font-weight: 300;
-      color: var(--cream-soft);
+      color: var(--ink-soft);
       line-height: 1.6;
       max-width: 400px;
     }
@@ -321,12 +320,12 @@
     .tl-photo img {
       width: 100%;
       display: block;
-      filter: saturate(0.75) brightness(0.85);
+      filter: saturate(0.85) brightness(0.95);
       transition: filter 0.4s;
     }
 
     .tl-photo:hover img {
-      filter: saturate(0.95) brightness(1);
+      filter: saturate(1) brightness(1);
     }
 
     /* ── PHOTO GALLERY ── */
@@ -343,7 +342,6 @@
       cursor: zoom-in;
     }
 
-    /* layout variations */
     .g-cell.span-4  { grid-column: span 4; grid-row: span 1; }
     .g-cell.span-6  { grid-column: span 6; grid-row: span 1; }
     .g-cell.span-8  { grid-column: span 8; grid-row: span 1; }
@@ -356,20 +354,20 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: saturate(0.7) brightness(0.8);
+      filter: saturate(0.85) brightness(0.9);
       transition: filter 0.4s, transform 0.5s;
     }
 
     .g-cell:hover img {
-      filter: saturate(1) brightness(0.95);
+      filter: saturate(1) brightness(1);
       transform: scale(1.03);
     }
 
-    /* ── LIGHTBOX ── */
+    /* ── LIGHTBOX ── stays dark ── */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(13,13,8,0.97);
+      background: rgba(10,10,6,0.97);
       z-index: 1000;
       display: none;
       align-items: center;
@@ -392,7 +390,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
       font-style: italic;
-      color: var(--cream-dim);
+      color: rgba(245,242,232,0.75);
       text-align: center;
     }
 
@@ -402,7 +400,7 @@
       right: 2rem;
       background: none;
       border: none;
-      color: var(--cream-soft);
+      color: rgba(245,242,232,0.5);
       font-size: 1.8rem;
       cursor: pointer;
       line-height: 1;
@@ -418,16 +416,17 @@
     }
 
     .memory-card {
-      background: var(--ink-mid);
-      border: 1px solid rgba(245,242,232,0.07);
+      background: var(--bg-mid);
+      border: 1px solid var(--bg-soft);
       border-radius: 4px;
       padding: 2rem;
-      transition: border-color 0.3s, transform 0.3s;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
 
     .memory-card:hover {
-      border-color: rgba(200,230,58,0.25);
+      border-color: var(--cv-dark);
       transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(26,26,12,0.08);
     }
 
     .memory-icon {
@@ -439,7 +438,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--cv);
+      color: var(--cv-dark);
       margin-bottom: 0.6rem;
       font-weight: 500;
     }
@@ -449,7 +448,7 @@
       font-size: 1.25rem;
       font-style: italic;
       font-weight: 300;
-      color: var(--cream);
+      color: var(--ink);
       line-height: 1.4;
       margin-bottom: 0.8rem;
     }
@@ -457,7 +456,7 @@
     .memory-note {
       font-size: 0.82rem;
       font-weight: 300;
-      color: var(--cream-soft);
+      color: var(--ink-soft);
       line-height: 1.6;
     }
 
@@ -465,7 +464,7 @@
     .song-section {
       padding: 7rem 4rem;
       text-align: center;
-      border-top: 1px solid rgba(245,242,232,0.06);
+      border-top: 1px solid var(--bg-soft);
     }
 
     .song-inner { max-width: 500px; margin: 0 auto; }
@@ -474,7 +473,7 @@
       font-size: 0.68rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--cv);
+      color: var(--cv-dark);
       margin-bottom: 1rem;
     }
 
@@ -483,25 +482,25 @@
       font-size: 3rem;
       font-weight: 300;
       font-style: italic;
-      color: var(--cream);
+      color: var(--ink);
       margin-bottom: 0.5rem;
     }
 
     .song-artist {
       font-size: 0.85rem;
-      color: var(--cream-soft);
+      color: var(--ink-soft);
       margin-bottom: 2rem;
       letter-spacing: 0.08em;
     }
 
     .song-placeholder {
-      border: 1px solid rgba(200,230,58,0.2);
+      border: 1px solid rgba(107,133,0,0.25);
       border-radius: 40px;
       padding: 1rem 2rem;
       display: inline-flex;
       align-items: center;
       gap: 0.8rem;
-      color: var(--cream-soft);
+      color: var(--ink-soft);
       font-size: 0.82rem;
       letter-spacing: 0.08em;
     }
@@ -510,7 +509,7 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--cv);
+      background: var(--cv-dark);
       animation: playerPulse 1.5s ease-in-out infinite;
     }
 
@@ -519,14 +518,14 @@
       50% { opacity: 0.3; }
     }
 
-    /* ── PLAYER BAR ── */
+    /* ── PLAYER BAR ── stays dark for contrast ── */
     .player-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
       z-index: 200;
-      background: rgba(13,13,8,0.95);
+      background: rgba(26,26,12,0.97);
       backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(200,230,58,0.15);
+      border-top: 2px solid var(--cv);
       padding: 0.9rem 2rem;
       display: flex;
       align-items: center;
@@ -547,20 +546,20 @@
       font-size: 0.65rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--cream-soft);
+      color: rgba(245,242,232,0.5);
     }
 
     .player-song {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
       font-style: italic;
-      color: var(--cream);
+      color: #f5f2e8;
       margin-top: 0.1rem;
     }
 
     .player-btn {
       background: none;
-      border: 1px solid rgba(200,230,58,0.3);
+      border: 1px solid rgba(200,230,58,0.4);
       color: var(--cv);
       padding: 0.5rem 1.2rem;
       border-radius: 20px;
@@ -573,14 +572,14 @@
       font-family: 'Figtree', sans-serif;
     }
 
-    .player-btn:hover { background: var(--cv-pale); border-color: var(--cv); }
+    .player-btn:hover { background: rgba(200,230,58,0.1); border-color: var(--cv); }
 
     /* ── CLOSING ── */
     .closing {
       padding: 8rem 4rem;
       text-align: center;
-      background: var(--ink-mid);
-      border-top: 1px solid rgba(200,230,58,0.12);
+      background: var(--bg-mid);
+      border-top: 1px solid var(--bg-soft);
     }
 
     .closing-quote {
@@ -589,23 +588,23 @@
       font-weight: 300;
       font-style: italic;
       line-height: 1.4;
-      color: var(--cream);
+      color: var(--ink);
       max-width: 700px;
       margin: 0 auto 2rem;
     }
 
-    .closing-quote span { color: var(--cv); }
+    .closing-quote span { color: var(--cv-dark); }
 
     .closing-date {
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--cream-soft);
+      color: var(--ink-soft);
     }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid rgba(200,230,58,0.2);
+      border-top: 1px solid var(--bg-soft);
       padding: 3rem 4rem;
       display: flex;
       justify-content: space-between;
@@ -620,7 +619,7 @@
       font-weight: 300;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--cv);
+      color: var(--cv-dark);
     }
 
     .footer-nav { display: flex; gap: 2rem; }
@@ -629,11 +628,11 @@
       font-size: 0.7rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--cream-ghost);
+      color: var(--ink-ghost);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-link:hover { color: var(--cv); }
+    .footer-link:hover { color: var(--cv-dark); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
@@ -1010,7 +1009,7 @@
       </div>
 
       <div class="tl-item">
-        <div class="tl-dot" style="background: var(--cv); box-shadow: 0 0 20px var(--cv-glow), 0 0 40px var(--cv-glow);"></div>
+        <div class="tl-dot" style="background: var(--cv-dark); box-shadow: 0 0 12px rgba(107,133,0,0.3);"></div>
         <div class="tl-date">March 29, 2026</div>
         <div class="tl-event">Happy First Anniversary My OTTER Half!</div>
         <div class="tl-photo">
