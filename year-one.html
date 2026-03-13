@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Figtree:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cv: #c8e63a;
-      --cv-dark: #6b8500;
-      --cv-pale: rgba(107,133,0,0.08);
-      --cv-glow: rgba(200,230,58,0.3);
-      --bg: #f2ede0;
-      --bg-mid: #e8e2d0;
-      --bg-soft: #ddd8c4;
-      --ink: #1a1a0c;
-      --ink-mid: #3a3a28;
-      --ink-soft: #6a6a50;
-      --ink-ghost: #a0a080;
+      --cv: #7FFF00;
+      --cv-dark: #7FFF00;
+      --cv-pale: rgba(127,255,0,0.08);
+      --cv-glow: rgba(127,255,0,0.3);
+      --bg: #141a10;
+      --bg-mid: #1a2214;
+      --bg-soft: #222e1c;
+      --ink: #f0ede4;
+      --ink-mid: #c8c4b8;
+      --ink-soft: #8a8880;
+      --ink-ghost: rgba(240,237,228,0.25);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,9 +53,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(242,237,224,0.92);
+      background: rgba(20,26,16,0.92);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(26,26,12,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .nav-left { display: flex; align-items: center; gap: 1.5rem; }
@@ -105,7 +105,7 @@
     .chapter-hero-bg {
       position: absolute;
       inset: 0;
-      background: #1a1a0c;
+      background: #141a10;
     }
 
     .chapter-hero-img {
@@ -123,9 +123,9 @@
       inset: 0;
       background: linear-gradient(
         to top,
-        rgba(10,10,6,1) 0%,
-        rgba(10,10,6,0.6) 40%,
-        rgba(10,10,6,0.1) 100%
+        rgba(20,26,16,1) 0%,
+        rgba(20,26,16,0.6) 40%,
+        rgba(20,26,16,0.1) 100%
       );
     }
 
@@ -367,7 +367,7 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(10,10,6,0.97);
+      background: rgba(0,0,0,0.98);
       z-index: 1000;
       display: none;
       align-items: center;
@@ -523,7 +523,7 @@
       position: fixed;
       bottom: 0; left: 0; right: 0;
       z-index: 200;
-      background: rgba(26,26,12,0.97);
+      background: rgba(0,0,0,0.98);
       backdrop-filter: blur(20px);
       border-top: 2px solid var(--cv);
       padding: 0.9rem 2rem;
@@ -1022,25 +1022,6 @@
 
   <hr class="divider" />
 
-
-  <!-- SONG -->
-  <section class="song-section">
-    <p class="song-eyebrow">The Soundtrack</p>
-    <div class="song-title">Year One Song</div>
-    <div class="song-artist">Add your song here</div>
-    <div class="song-placeholder">
-      <div class="song-dot"></div>
-      Song coming soon
-    </div>
-  </section>
-
-  <!-- CLOSING -->
-  <section class="closing">
-    <p class="closing-quote reveal">
-      "Sixteen adventures. Two countries. Eight cities. One year that made the rest of them<span> possible.</span>"
-    </p>
-    <p class="closing-date reveal">March 29, 2025 — March 29, 2026</p>
-  </section>
 
   <!-- FOOTER -->
   <footer>

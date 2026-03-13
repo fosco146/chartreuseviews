@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Figtree:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cv: #c8e63a;
-      --cv-dark: #6b8500;
-      --cv-pale: rgba(107,133,0,0.08);
-      --cv-glow: rgba(200,230,58,0.3);
-      --bg: #f2ede0;
-      --bg-mid: #e8e2d0;
-      --bg-soft: #ddd8c4;
-      --ink: #1a1a0c;
-      --ink-mid: #3a3a28;
-      --ink-soft: #6a6a50;
-      --ink-ghost: #a0a080;
+      --cv: #7FFF00;
+      --cv-dark: #7FFF00;
+      --cv-pale: rgba(127,255,0,0.08);
+      --cv-glow: rgba(127,255,0,0.3);
+      --bg: #141a10;
+      --bg-mid: #1a2214;
+      --bg-soft: #222e1c;
+      --ink: #f0ede4;
+      --ink-mid: #c8c4b8;
+      --ink-soft: #8a8880;
+      --ink-ghost: rgba(240,237,228,0.25);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,9 +54,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(242,237,224,0.92);
+      background: rgba(20,26,16,0.92);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(26,26,12,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .nav-logo {
@@ -97,14 +97,15 @@
     }
 
     .nav-dropdown:hover .nav-dropdown-btn::after { transform: rotate(180deg); }
+    .nav-dropdown.open .nav-dropdown-btn::after { transform: rotate(180deg); }
 
     .nav-dropdown-menu {
       position: absolute;
       top: calc(100% + 1rem);
       right: 0;
-      background: rgba(242,237,224,0.99);
+      background: rgba(20,26,16,0.99);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(26,26,12,0.12);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 4px;
       min-width: 200px;
       opacity: 0;
@@ -112,10 +113,10 @@
       transform: translateY(-8px);
       transition: opacity 0.2s, transform 0.2s;
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(26,26,12,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
 
-    .nav-dropdown:hover .nav-dropdown-menu {
+    .nav-dropdown.open .nav-dropdown-menu {
       opacity: 1;
       pointer-events: all;
       transform: translateY(0);
@@ -131,7 +132,7 @@
       color: var(--ink-soft);
       text-decoration: none;
       transition: background 0.15s, color 0.15s;
-      border-bottom: 1px solid rgba(26,26,12,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .nav-dropdown-item:last-child { border-bottom: none; }
@@ -259,7 +260,7 @@
       position: fixed;
       bottom: 0; left: 0; right: 0;
       z-index: 200;
-      background: rgba(26,26,12,0.97);
+      background: rgba(0,0,0,0.98);
       backdrop-filter: blur(20px);
       border-top: 2px solid var(--cv);
       padding: 0.9rem 2rem;
@@ -365,12 +366,13 @@
     }
 
     .section-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--cv-dark);
       margin-bottom: 3rem;
-      font-weight: 500;
+      font-weight: 300;
     }
 
     .volumes-grid {
@@ -387,13 +389,13 @@
       text-decoration: none;
       display: block;
       width: 420px;
-      box-shadow: 0 4px 24px rgba(26,26,12,0.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
     }
 
     .volume-card:hover {
       border-color: var(--cv-dark);
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(26,26,12,0.15);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
     }
 
     .volume-img {
@@ -531,11 +533,11 @@
   <nav>
     <a href="index.html" class="nav-logo">Chartreuse Views</a>
     <div class="nav-dropdown">
-      <button class="nav-dropdown-btn">This Year</button>
+      <button class="nav-dropdown-btn">Volumes</button>
       <div class="nav-dropdown-menu">
         <a href="year-one.html" class="nav-dropdown-item active">
           Year One
-          <span class="item-sub">Mar 29, 2025 — Mar 29, 2026</span>
+          <span class="item-sub">2025 — 2026</span>
         </a>
         <!-- Add new years here each March 29th -->
       </div>
@@ -562,39 +564,16 @@
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats">
-    <div class="stats-grid reveal">
-      <div class="stat">
-        <div class="stat-num">1</div>
-        <div class="stat-label">Year Together</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">8</div>
-        <div class="stat-label">Cities</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Countries</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">More to Come</div>
-      </div>
-    </div>
-  </section>
-
   <!-- VOLUMES -->
   <section class="volumes" id="volumes">
-    <p class="section-eyebrow reveal">The Collection</p>
+    <p class="section-eyebrow reveal">Volumes</p>
     <div class="volumes-grid">
       <a href="year-one.html" class="volume-card reveal">
         <img class="volume-img" src="https://pub-8880c245e94e43a9a8203f5fd57e8ece.r2.dev/IMG_7589.JPG" alt="Year One" />
         <div class="volume-overlay"></div>
         <div class="volume-content">
-          <div class="volume-number">Volume I</div>
           <div class="volume-year">Year One</div>
-          <div class="volume-dates">Mar 29, 2025 — Mar 29, 2026</div>
+          <div class="volume-dates">2025 — 2026</div>
           <div class="volume-cta">Open this chapter</div>
         </div>
       </a>
@@ -636,6 +615,15 @@
       });
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
+
+    // Click-based dropdown
+    const dropdown = document.querySelector('.nav-dropdown');
+    const dropBtn = document.querySelector('.nav-dropdown-btn');
+    dropBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
   </script>
 
 </body>
