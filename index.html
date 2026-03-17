@@ -534,16 +534,6 @@
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Chartreuse Views</a>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-btn">Volumes</button>
-      <div class="nav-dropdown-menu">
-        <a href="year-one.html" class="nav-dropdown-item active">
-          Year One
-          <span class="item-sub">2025 — 2026</span>
-        </a>
-        <!-- Add new years here each March 29th -->
-      </div>
-    </div>
   </nav>
 
   <!-- HERO -->
@@ -576,7 +566,7 @@
         <div class="volume-content">
           <div class="volume-year">Year One</div>
           <div class="volume-dates">2025 — 2026</div>
-          <div class="volume-cta">Open</div>
+          <div class="volume-cta">Open this chapter</div>
         </div>
       </a>
     </div>
@@ -586,7 +576,7 @@
   <section class="about">
     <div class="about-inner">
       <p class="about-quote reveal">
-        An interactive journey of our <span>views</span> together each year.
+        An interactive compendium of our <span>views</span> together throughout each year.
       </p>
     </div>
   </section>
@@ -618,14 +608,7 @@
       }
     });
 
-    // Click-based dropdown
-    const dropdown = document.querySelector('.nav-dropdown');
-    const dropBtn = document.querySelector('.nav-dropdown-btn');
-    dropBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.classList.toggle('open');
-    });
-    document.addEventListener('click', () => dropdown.classList.remove('open'));
+
   </script>
 
 </body>
