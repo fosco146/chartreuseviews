@@ -9,10 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Figtree:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cv: #7FFF00;
-      --cv-dark: #7FFF00;
-      --cv-pale: rgba(127,255,0,0.08);
-      --cv-glow: rgba(127,255,0,0.3);
+      --cv: #D4E000;
+      --cv-dark: #D4E000;
+      --cv-pale: rgba(212,224,0,0.08);
+      --cv-glow: rgba(212,224,0,0.3);
       --bg: #141a10;
       --bg-mid: #1a2214;
       --bg-soft: #222e1c;
@@ -61,12 +61,16 @@
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 300;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--cv-dark);
+      letter-spacing: 0.02em;
+      color: var(--ink);
       text-decoration: none;
+    }
+
+    .nav-logo .nav-logo-accent {
+      color: var(--cv-dark);
+      font-style: italic;
     }
 
     .nav-dropdown { position: relative; }
@@ -167,9 +171,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 50% at 50% 30%, rgba(200,230,58,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 15% 60%, rgba(200,230,58,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 30% 40% at 85% 70%, rgba(200,230,58,0.05) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 50% at 50% 30%, rgba(212,224,0,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 15% 60%, rgba(212,224,0,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 85% 70%, rgba(212,224,0,0.05) 0%, transparent 60%);
     }
 
     .rings {
@@ -184,7 +188,7 @@
     .ring {
       position: absolute;
       border-radius: 50%;
-      border: 1px solid rgba(107,133,0,0.12);
+      border: 1px solid rgba(200,180,0,0.12);
       animation: ringExpand 8s ease-out infinite;
     }
     .ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
@@ -215,9 +219,10 @@
     }
 
     .hero-sub {
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.18em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--ink-soft);
       margin-top: 2rem;
@@ -316,7 +321,7 @@
       font-family: 'Figtree', sans-serif;
     }
 
-    .player-btn:hover { background: rgba(200,230,58,0.1); border-color: var(--cv); }
+    .player-btn:hover { background: rgba(212,224,0,0.1); border-color: var(--cv); }
 
     /* ── STATS ── */
     .stats {
@@ -375,6 +380,18 @@
       color: var(--cv-dark);
       margin-bottom: 3rem;
       font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      max-width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, var(--cv-dark), transparent);
+      opacity: 0.4;
     }
 
     .volumes-grid {
@@ -492,11 +509,10 @@
 
     .footer-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
+      font-size: 1.25rem;
       font-weight: 300;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--cv-dark);
+      letter-spacing: 0.02em;
+      color: var(--ink);
     }
 
     .footer-copy {
@@ -533,7 +549,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">Chartreuse Views</a>
+    <a href="index.html" class="nav-logo">Chartreuse <span class="nav-logo-accent">Views</span></a>
   </nav>
 
   <!-- HERO -->
@@ -583,6 +599,7 @@
 
   <!-- FOOTER -->
   <footer>
+    <div class="footer-logo">Chartreuse <span style="color:var(--cv-dark);font-style:italic;">Views</span></div>
     <div class="footer-copy">Mitch & Becka · chartreuseviews.com</div>
   </footer>
 
